@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KKK Electronic Shop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+
+    /* Sidebar */
+
+
+    .sidebar {
+      width: 220px;
+      /*background-color: #175929;*/
+      background-color: rgba(23, 89, 41, 0.8);
+
+      color: white;
+      height: 100vh;
+      position: fixed;
+      padding-top: 20px;
+    }
+
+    .sidebar img{
+      width: 90%;
+      height: 200px;
+      margin: 10px;
+      border-radius: 20px;
+      box-shadow: 2px black;
+     
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 16px;
+      border: 1px solid white;
+      margin: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .sidebar a:hover {
+      background-color: #144b23;
+      
+    }
+
+    /* Main content */
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /*object-fit: contain; /* Keep full image visible */*/
+      /*background-color: black; /* Fill gaps */*/
+    }
+    .main {
+      margin-left: 220px;
+      padding: 10px 10px;
+      background-image: url('https://images.unsplash.com/photo-1581092588422-8cf78f1e2d29?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      color: white;
+      backdrop-filter: brightness(0.9);
+      
+    }
+
+    .main h1 {
+      font-size: 70px;
+      color: green;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 7px black;
+      text-align: center;
+      
+    }
+
+
+    .intro {
+      /*background-color: #144b23;*/
+      background-color: rgba(23, 89, 41, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-size: 19px;
+      line-height: 40px;
+    }
+
+    .aniimg{
+      /*background-image: url(https://i.pinimg.com/736x/7e/0d/72/7e0d726de23526d9b02c2663c02f6227.jpg);
+      min-height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+      border-radius: 20px;*/
+      background-image: url(https://i.pinimg.com/736x/7e/0d/72/7e0d726de23526d9b02c2663c02f6227.jpg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      overflow: hidden;          /* prevent overflow on small screens */
+      padding: 12px;             /* breathing room for wrapped layout */
+      box-sizing: border-box;
+
+    }
+
+    .container{
+      /*width: 100px;
+      height: 300px;
+      position: relative;
+      padding-top: 80px;
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+      animation: gallery 60s linear infinite;
+      cursor: pointer;*/
+      width: min(90%, 680px);    /* responsive width */
+      height: 260px;             /* comfortable height for images */
+      position: relative;
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+      animation: gallery 60s linear infinite;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .container span{
+      /*position: absolute;
+      width: 70%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transform: rotateY(calc(var(--i)*45deg)) translateZ(430px);
+      -webkit-box-reflect: below 5px linear-gradient(transparent, transparent, rgba(3,3,3,1));*/
+      position: absolute;
+      width: 220px;              /* card width for each panel on large screens */
+      height: 160px;             /* card height */
+      left: 50%;
+      top: 50%;
+      transform-style: preserve-3d;
+      /* rotate around Y and push back into Z for carousel effect */
+      transform: translate(-50%, -50%) rotateY(calc(var(--i) * 45deg)) translateZ(430px);
+      -webkit-box-reflect: below 2.5px linear-gradient(transparent, transparent, rgba(3,3,3,1));
+    }
+
+    .container span img{
+      /*width: 200px;
+      height: 150px;
+      position: absolute;
+      border-radius: 10px;
+      border: 2px ridge black;
+      box-shadow: 1px 1px 4px #000;*/
+      width: 100%;
+      height: 100%;
+      object-fit: cover;         /* fill card while preserving aspect */
+      display: block;
+      border-radius: 10px;
+      border: 2px solid rgba(0,0,0,0.5);
+      box-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    @keyframes gallery{
+      0%{
+        transform: perspective(1000px) rotateY(0deg);
+      }
+      100%{
+        transform: perspective(1000px) rotateY(360deg);
+      }
+    }
+
+
+
+
+   
+
+    /* Search */
+    #searchBar {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    /* Products */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      /*background-color: #175929;*/
+      background-color: rgba(23, 89, 41, 0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .product img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .product h3 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .product p {
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer {
+      /*background-color: #175929;*/
+      /*background-color: rgba(23, 89, 41, 0.85);*/
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 20px 20px 20px;
+      margin-top: 40px;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+
+    .footer .contact-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .footer .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .footer .contact-info img {
+      width: 20px;
+      height: 20px;
+      filter: invert(1);
+    }
+
+    @media screen and (max-width: 768px) {
+      .sidebar {
+        width: 100px;
+      }
+
+
+      .main {
+        margin-left: 100px;
+      }
+
+      .sidebar h2 {
+        font-size: 18px;
+      }
+
+      .sidebar a {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img src="./img/logo1.jpg"></img>
+    <!-- <h2>Kသုံးလုံး</h2> -->
+    <a href="#home">Home</a>
+    <a href="#products">Product</a>
+    <a href="https://maps.app.goo.gl/ortGz4YqdFak4CR4A" target="_blank">Map</a>
+    <a href="#cont">Contact</a>
+
+  </div>
+
+  <!-- Main Content -->
+  <img src="https://specials-images.forbesimg.com/imageserve/615b7a2d10f14c6d90c57d56/Small-appliances-on-a-kitchen-countertop-/960x0.jpg?fit=scale" alt="Background" class="bg">
+  <div class="main">
+    <section id="home">
+
+      <h1>Welcome to Kသုံးလုံး လျှပ်စစ် Shop</h1>
+      <div class="intro">
+        <p>
+          Kသုံးလုံး လျှပ်စစ် ပစ္စည်းနှင့် လုပ်ငန်းသုံးပစ္စည်း ရောင်းဝယ်ရေးမှ ကြိုဆိုပါတယ်ခင်ဗျာ။ Kသုံးလုံး လျှပ်စစ်ပစ္စည်းဆိုင်တွင် အိမ်တွင်းသုံးလျှပ်စစ်ပစ္စည်းများ / မီးဖိုခန်းသုံး လျှပ်စစ်ပစ္စည်းများ / လုပ်ငန်းသုံးပစ္စည်းများကို ဝယ်ယူရရှိနိုင်ပါသည်။ ထို့အပြင် လျှပ်စစ်ပစ္စည်းများ မီးဖိုခန်းသုံးပစ္စည်းများ ဖြစ်သော ထမင်းပေါင်းအိုး ၊ ဒယ်နီ ၊ မီးပူ ၊ လျှပ်စစ်မီးဖို ၊ ရေနွေးအိုး နှင့် အစရှိသောပစ္စည်းများကို လည်းပြုပြင် ပေးသော Services များရရှိနိုင်ပါသည်။
+        </p>
+
+      </div>
+      
+      
+    </section>
+
+    <section class="aniimg">
+    <div class="container">
+        <span style="--i:1"><img src="./img/kkk.jpg" alt=""></span>
+        <span style="--i:2"><img src="./img/k2.jpg" alt=""></span>
+        <span style="--i:3"><img src="./img/k21.jpg" alt=""></span>
+        <span style="--i:4"><img src="./img/k23.jpg" alt=""></span>
+        <span style="--i:5"><img src="./img/k24.jpg" alt=""></span>
+        <span style="--i:6"><img src="./img/k25.jpg" alt=""></span>
+        <span style="--i:7"><img src="./img/k26.jpg" alt=""></span>
+        <span style="--i:8"><img src="./img/k27.jpg" alt=""></span>
+      </div>
+      </section>
+    
+
+    <!-- Search Bar -->
+    <input type="text" id="searchBar" placeholder="Search products...">
+
+    <marquee style="color: black; font-size: 30px;"><b>*မှတ်ချက်*။  ။Page တွင်ပါရှိသော Products များ၏စျေးနှုန်းများသည် အတက်အကျ ရှိနိုင်ပါသည်။</b></marquee>
+
+    <!-- Product List -->
+    <section id="products">
+      <div class="products" id="productList">
+        <!-- Products will be populated via JS -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="map">
+      <h3 id="cont">Contact Us</h3>
+      <div class="contact-info">
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email Icon" />
+          <span>Email: ismaelzabeeullah@gmail.com</span>
+        </div>
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone Icon" />
+          <span>Phone: 09-2045947 / 09-794805619 /  09-791144380 /09-775450877 /09-797484924 </span>
+        </div>
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Address Icon" />
+          <span>Address: ကုန်သည်လမ်း မေမြိုစျေးကြီးမြောက်ဘက် ပြင်ဦးလွင် Myanmar</span>
+        </div>
+        
+      </div>
+      
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const products = [
+    //kettle//
+      { name: "Samsonic Kettle SAM-719", price: "30000", img: "./img/sampot1.jpg" },
+      { name: "Samsonic Kettle SAM-718", price: "40000", img: "./img/sampot2.jpg" },
+      { name: "Samsonic Kettle SAM-207", price: "40000", img: "./img/sampot3.jpg" },
+      { name: "Samsonic Kettle SAM-207", price: "40000", img: "./img/sampot4.jpg" },
+      { name: "Samsonic Kettle KL 119", price: "40000", img: "./img/sampot5.jpg" },
+      
+      { name: "Jfresh Kettle JF-18", price: "23000", img: "./img/jfreshpot1.jpg" },
+      { name: "Jfresh Kettle JF-801", price: "40000", img: "./img/jfreshpot2.jpg" },
+      { name: "Jfresh Kettle JF 1815B", price: "40000", img: "./img/jfreshpot3.jpg" },
+      { name: "Jfresh Kettle JF-188", price: "40000", img: "./img/jfreshpot4.jpg" },
+      
+      { name: "Aillian Kettle ", price: "40000", img: "./img/ailianpot1.jpg" },
+      { name: "Aillian Kettle ", price: "40000", img: "./img/ailianpot2.jpg" },
+      { name: "Aillian Kettle ", price: "40000", img: "./img/ailianpot4.jpg" },
+      { name: "Aillian Kettle ", price: "40000", img: "./img/ailianpot5.jpg" },
+      { name: "Redmart Kettle", price: "17000", img: "./img/redmartpot.jpg" },
+      { name: "Superwide Kettle", price: "30000", img: "./img/swpot.jpg" },
+      { name: "Tocks Kettle", price: "40000", img: "./img/tockspot.jpg" },
+
+      { name: " ရေနွေးခရားအိုး", price: "50000", img: "./img/kettle1.jpg" },
+      { name: " ရေနွေးခရားအိုး", price: "80000", img: "./img/kettle2.jpg" },
+      
+      { name: "3minအပိုပစ္စည်း", price: "2500", img: "./img/3minextra.jpg" },
+      { name: "3minခံဝိုင်း", price: "5500", img: "./img/3minextra1.jpg" },
+    //dryer//
+      { name: "Samsonic Dryer HD-02", price: "50000", img: "./img/samdryer1.jpg" },
+      { name: "Samsonic Dryer SAM HD07", price: "50000", img: "./img/samdryer2.jpg" },
+
+      { name: "Jfresh Dryer JF-8880", price: "32000", img: "./img/jfreshdryer1.jpg" },
+      { name: "Jfresh Dryer JF-8815", price: "32000", img: "./img/jfreshdryer2.jpg" },
+      { name: "Jfresh Dryer JF-3318", price: "30000", img: "./img/jfreshdryer3.jpg" },
+      { name: "Jfresh Dryer JF-1200", price: "30000", img: "./img/jfreshdryer4.jpg" },
+      { name: "Jfresh Dryer JF-3338", price: "40000", img: "./img/jfreshdryer5.jpg" },
+      { name: "Jfresh Dryer JF-M10", price: "80000", img: "./img/jfreshdryer6.jpg" },
+      { name: "Nova Dryer", price: "15000", img: "./img/novadryer.jpg" },
+      { name: "Saga Dryer", price: "20000", img: "./img/sagadryer1.jpg" },
+      { name: "Saga Dryer", price: "22000", img: "./img/sagadryer2.jpg" },
+      { name: "Saga Dryer", price: "30000", img: "./img/sagadryer3.jpg" },
+      { name: "Saga Dryer", price: "30000", img: "./img/sagadryer4.jpg" },
+      { name: "Saga Dryer", price: "30000", img: "./img/sagadryer5.jpg" },
+      { name: "Superwide Dryer", price: "40000", img: "./img/swdryer.jpg" },
+      { name: "Superwide Dryer", price: "30000", img: "./img/swdryer1.jpg" },
+      { name: "Superwide Dryer", price: "80000", img: "./img/swdryer2.jpg" },
+      { name: "Superwide Dryer", price: "50000", img: "./img/swdryer3.jpg" },
+      { name: "Superwide Dryer", price: "25000", img: "./img/swdryer4.jpg" },
+
+
+    //hair//
+      { name: "ဆံပင်ကောက်စက်", price: "35000", img: "./img/hair1.jpg" },
+      { name: "ဆံပင်ဖြောင့်စက်", price: "35000", img: "./img/hair2.jpg" },
+
+
+
+
+      { name: "ဆံပင်ညှပ်စက်", price: "35000", img: "./img/hc1.jpg" },
+      { name: "ဆံပင်ညှပ်စက်", price: "36000", img: "./img/hc2.jpg" },
+      { name: "ဆံပင်ညှပ်စက်", price: "20000", img: "./img/hc3.jpg" },
+      { name: "ဆံပင်ညှပ်စက်", price: "45000", img: "./img/hc4.jpg" },
+      
+    //iron//
+      { name: "Samsonic iron Sam 3536s", price: "40000", img: "./img/samiron1.jpg" },
+      { name: "Samsonic iron Sam 919", price: "40000", img: "./img/samiron2.jpg" },
+      { name: "Samsonic iron", price: "80000", img: "./img/samiron3.jpg" },
+      { name: "Jfresh Iron JF-542", price: "40000", img: "./img/jfreshiron1.jpg" },
+      { name: "Jfresh Iron JF-655", price: "40000", img: "./img/jfreshiron2.jpg" },
+      { name: "Jfresh Iron JF-12", price: "40000", img: "./img/jfreshiron3.jpg" },
+      { name: "Jfresh Iron JF-15", price: "40000", img: "./img/jfreshiron4.jpg" },
+      { name: "Jfresh Iron JF-25 ", price: "40000", img: "./img/jfreshiron5.jpg" },
+      { name: "Jfresh Iron JF-84", price: "40000", img: "./img/jfreshiron6.jpg" },
+      { name: "Aillian Iron 1001A", price: "50000", img: "./img/ailianiron.jpg" },
+
+      { name: "Broms Iron", price: "35000", img: "./img/bromsiron.jpg" },
+      { name: "National Iron", price: "42000", img: "./img/nationaliron.jpg" },
+      { name: "Philips iron", price: "110000", img: "./img/phillipsiron.jpg" },
+      { name: "Royal iron", price: "25000", img: "./img/Royaliron.jpg" },
+      { name: "Saga iron", price: "45000", img: "./img/sagairon1.jpg" },
+      { name: "Saga iron", price: "45000", img: "./img/sagairon2.jpg" },
+      { name: "Saga iron", price: "45000", img: "./img/sagairon3.jpg" },
+      { name: "Saga iron", price: "45000", img: "./img/sagairon4.jpg" },
+      { name: "Saga iron", price: "45000", img: "./img/sagairon5.jpg" },
+
+
+    //RC//
+      { name: "Samsonic Rice Cooker 65-G", price: "125000", img: "./img/samrc1.jpg" },
+      { name: "Samsonic Rice Cooker 61-C", price: "125000", img: "./img/samrc2.jpg" },
+      { name: "Samsonic Rice Cooker D-20", price: "125000", img: "./img/samrc3.jpg" },
+      { name: "Samsonic Rice Cooker C-25", price: "125000", img: "./img/samrc4.jpg" },
+      { name: "Samsonic Rice Cooker", price: "125000", img: "./img/samrc5.jpg" },
+      { name: "Samsonic Rice Cooker SAM-96A / 96B", price: "125000", img: "./img/samrc6.jpg" },
+      { name: "Samsonic Rice Cooker SAM-95A / 95B", price: "125000", img: "./img/samrc7.jpg" },
+      
+      { name: "Jfresh Rice Cooker JFC211 2လုံးချက်", price: "52000", img: "./img/jfreshrc1.jpg" },
+      { name: "Jfresh Rice Cooker JFC315 3လုံးချက်", price: "62000", img: "./img/jfreshrc2.jpg" },
+      { name: "Jfresh Rice Cooker JFC418 4လုံးချက်", price: "72000", img: "./img/jfreshrc3.jpg" },
+      { name: "Jfresh Rice Cooker JFC622 6လုံးချက်", price: "82000", img: "./img/jfreshrc4.jpg" },
+      { name: "Jfresh Rice Cooker JFC828 8လုံးချက်", price: "92000", img: "./img/jfreshrc5.jpg" },
+      { name: "Jfresh Rice Cooker JFPT211 2လုံးချက်", price: "58000", img: "./img/jfreshrcp1.jpg" },
+      { name: "Jfresh Rice Cooker JFPT315 3လုံးချက်", price: "68000", img: "./img/jfreshrcp2.jpg" },
+      { name: "Jfresh Rice Cooker JFPT418 4လုံးချက်", price: "78000", img: "./img/jfreshrcp3.jpg" },
+      { name: "Jfresh Rice Cooker JFPT622 6လုံးချက်", price: "88000", img: "./img/jfreshrcp4.jpg" },
+      { name: "Jfresh Rice Cooker JFPT828 8လုံးချက်", price: "98000", img: "./img/jfreshrcp5.jpg" },
+
+      { name: "Jfresh Rice Cooker JFP211 2လုံးချက်", price: "58000", img: "./img/jfreshrcrc1.jpg" },
+      { name: "Jfresh Rice Cooker JFP315 3လုံးချက်", price: "68000", img: "./img/jfreshrcrc2.jpg" },
+      { name: "Jfresh Rice Cooker JFP418 4လုံးချက်", price: "78000", img: "./img/jfreshrcrc3.jpg" },
+      { name: "Jfresh Rice Cooker JFP622 6လုံးချက်", price: "88000", img: "./img/jfreshrcrc2.jpg" },
+      { name: "Jfresh Rice Cooker JFP828 8လုံးချက်", price: "98000", img: "./img/jfreshrcrc1.jpg" },
+
+      { name: "Jfresh Rice Cooker JFP-1534 (1)ပြည်ခွဲချက်", price: "180000", img: "./img/jfreshrcbig.jpg" },
+      { name: "Jfresh Rice Cooker JFP-245 (2)ပြည်ချက်", price: "220000", img: "./img/jfreshrcbig.jpg" },
+      { name: "Jfresh Rice Cooker JFP-367 (3)ပြည်ချက်", price: "250000", img: "./img/jfreshrcbig.jpg" },
+      { name: "Jfresh Rice Cooker JFP-478 (4)ပြည်ချက်", price: "270000", img: "./img/jfreshrcbig.jpg" },
+
+      { name: "Ailian Rice Cooker ", price: "85000", img: "./img/ailianrc1.jpg" },
+      { name: "Ailian Rice Cooker ", price: "85000", img: "./img/ailianrc2.jpg" },
+      { name: "Ailian Rice Cooker ", price: "85000", img: "./img/ailianrc3.jpg" },
+      { name: "Ailian Rice Cooker ", price: "1.0L = 85000 / 1.2L = 85000 / 2.0L = 85000 / 2.8L = 100000", img: "./img/ailianrc4.jpg" },
+      { name: "Ailian Rice Cooker ", price: "125000", img: "./img/ailianrc5.jpg" },
+      { name: "Ailian Rice Cooker ", price: "125000", img: "./img/ailianrc6.jpg" },
+      { name: "Ailian Rice Cooker ", price: "125000", img: "./img/ailianrc7.jpg" },
+      { name: "Ailian Rice Cooker ", price: "125000", img: "./img/ailianrc8.jpg" },
+      { name: "Glow Rice Cooker ", price: "55000", img: "./img/glowrc.jpg" },
+      { name: "Shwehorse Rice Cooker", price: "40000", img: "./img/shrc1.jpg" },
+      { name: "RC Coin", price: "10000", img: "./img/rccoin.jpg" },
+
+
+    //Blender//
+      { name: "Samsonic Blender", price: "70000", img: "./img/samblender1.jpg" },
+      { name: "Nikki Blender", price: "60000", img: "./img/nikkiblender.jpg" },
+      { name: "Nikki Blender", price: "75000", img: "./img/nikkiblender1.jpg" },
+      { name: "Saga Blender", price: "85000", img: "./img/sagablender1.jpg" },
+      { name: "Saga Blender", price: "95000", img: "./img/sagablender2.jpg" },
+      { name: "Saga Blender", price: "85000", img: "./img/sagablender3.jpg" },
+
+
+
+    // grinder //
+      { name: "အသားကြိတ်စက်", price: "58000", img: "./img/grinder1.jpg" },
+      { name: "အသားကြိတ်စက်", price: "70000", img: "./img/grinder2.jpg" },
+      { name: "အသားကြိတ်စက်", price: "120000", img: "./img/grinder3.jpg" },
+      { name: "အသားကြိတ်စက်", price: "30000", img: "./img/grinder4.jpg" },
+      { name: "အသားကြိတ်စက် 2L", price: "70000", img: "./img/2l.jpg" },
+    //Ex Fan//
+    //Ex Fan//
+      { name: "Jfresh Ceiling Ex Fan 8inch", price: "65000", img: "./img/jfreshceilingexfan.jpg" },
+      { name: "Jfresh Ceiling Ex Fan 9inch", price: "75000", img: "./img/jfreshceilingexfan.jpg" },
+      { name: "Jfresh Ceiling Ex Fan 10inch", price: "85000", img: "./img/jfreshceilingexfan.jpg" },
+      { name: "Jfresh Wall Ex Fan 8inch", price: "65000", img: "./img/jfreshwallexfan.jpg" },
+      { name: "Jfresh Wall Ex Fan 10inch", price: "75000", img: "./img/jfreshwallexfan.jpg" },
+      { name: "Jfresh Wall Ex Fan 12inch", price: "88000", img: "./img/jfreshwallexfan.jpg" },
+
+
+
+    //Electronic Pan//
+      { name: "Jfresh Electric Pan 12inch ဒယ်ဖြူ", price: "85000", img: "./img/jfreshpan1.jpg" },
+      { name: "Jfresh Electric Pan 12inch ဒယ်မဲ", price: "90000", img: "./img/jfreshpan2.jpg" },
+      { name: "Aillian Electric Pan 12inch", price: "80000", img: "./img/ailianelectricpan.jpg" },
+      { name: "Daiwa Electric Pan 12inch ဒယ်ဖြူ", price: "95000", img: "./img/electricpan.jpg" },
+      { name: "Daiwa Electric Pan 12inch ဒယ်မဲ", price: "100000", img: "./img/electricpan.jpg" },
+      { name: "Misushita Electric Pan 12inch ဒယ်မဲ", price: "100000", img: "./img/misushitaelectricpan.jpg" },
+      { name: "Misushita Electric Pan 12inch ဒယ်ဖြူ", price: "100000", img: "./img/misushitaelectricpan.jpg" },
+      { name: "Good Star Electric Pan 12inch ဒယ်ဖြူ", price: "50000", img: "./img/gselectricpan.jpg" },
+
+
+      { name: "ဒယ်နီပေါင်းအိုး အပိုပစ္စည်း", price: "2000/2500", img: "./img/extra.jpg" },
+
+    //digital oven//
+      { name: "Aillian Digital Oven ", price: "98000", img: "./img/ailiandigitaloven.jpg" },
+      { name: "Digital Oven ", price: "65000", img: "./img/digital1.jpg" },
+      { name: "Superwide Digital Oven", price: "145000", img: "./img/swdigitaloven1.jpg" },
+      { name: "Superwide Digital Oven", price: "125000", img: "./img/swdigitaloven2.jpg" },
+      { name: "Superwide Digital Oven", price: "98000", img: "./img/swdigitaloven3.jpg" },
+      { name: "Superwide Digital Oven", price: "98000", img: "./img/swdigitaloven4.jpg" },
+
+      { name: "Wafer Coin", price: "15000", img: "./img/wafercoin.jpg" },
+      { name: "ဟယ်လင်ကြိုးပါ", price: "3500", img: "./img/hc.jpg" },
+      { name: "Sensor", price: "4000", img: "./img/sensor.jpg" },
+
+    //gas oven//
+      { name: "Gas Oven ", price: "38000", img: "./img/gasoven.jpg" },
+      { name: "Namilux Gas Oven ", price: "78000", img: "./img/namiluxgasoven.jpg" },
+
+
+
+
+    //pot//
+      { name: "18cmpot", price: "20000", img: "./img/18cm.jpg" },
+      { name: "20cmpot", price: "24000", img: "./img/20cm.jpg" },
+      { name: "22cmpot", price: "28000", img: "./img/22cm.jpg" },
+      { name: "28cmpot", price: "35000", img: "./img/28cm.jpg" },
+      { name: "Ailian 18cmpot", price: "40000", img: "./img/aillain18cm.jpg" },
+      { name: "Aligong ", price: "55000", img: "./img/aligong.jpg" },
+      { name: "ဖရုံသီး pot", price: "40000", img: "./img/totipot.jpg" },
+
+    //pressure cooker//
+      { name: "Pressure cooker အသီး", price: "5000", img: "./img/pce.jpg" },
+
+    //Extension//
+      { name: "Extension", price: "", img: "./img/ex1.jpg" },
+      { name: "Extension", price: "", img: "./img/ex2.jpg" },
+      { name: "Extension", price: "", img: "./img/ex3.jpg" },
+      { name: "Extension", price: "", img: "./img/ex4.jpg" },
+      { name: "Extension", price: "", img: "./img/ex5.jpg" },
+      { name: "Extension", price: "", img: "./img/ex6.jpg" },
+      { name: "Extension", price: "", img: "./img/ex7.jpg" },
+      { name: "Extension", price: "", img: "./img/ex8.jpg" },
+      { name: "Extension", price: "", img: "./img/examc.jpg" },
+
+    //radio//
+      { name: "Radio", price: "40000", img: "./img/r1.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r2.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r3.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r4.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r5.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r6.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r7.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r8.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r9.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r10.jpg" },
+      { name: "Radio", price: "40000", img: "./img/r11.jpg" },
+
+
+
+    //heater//
+      { name: "Diamond Heater", price: "50000", img: "./img/heater1.jpg" },
+      { name: " Heater", price: "50000", img: "./img/heater2.jpg" },
+
+    //Microwave//
+      { name: "Samsonic Microwave", price: "250000", img: "./img/sammicrowave1.jpg" },
+    //Air Cooler
+      { name: "Samsonic Air Cooler", price: "300000", img: "./img/samac1.jpg" },
+
+    //WATERCOOLER//
+      { name: "Ailian Water Cooler", price: "300000", img: "./img/ailianwc.jpg" },
+
+    //recharge fan//
+      { name: "အားသွင်းပန်ကာ", price: "45000", img: "./img/rechargefan1.jpg" },
+      { name: "အားသွင်းပန်ကာ", price: "45000", img: "./img/rechargefan2.jpg" },
+
+    //fan//
+      { name: "အရုပ်ပန်ကာ", price: "35000", img: "./img/acfan1.jpg" },
+      { name: "လက်ကိုင်ပန်ကာ", price: "25000", img: "./img/hfan1.jpg" },
+      { name: "လက်ကိုင်ပန်ကာ", price: "25000", img: "./img/hfan2.jpg" },
+      { name: "လက်ကိုင်ပန်ကာ", price: "25000", img: "./img/hfan3.jpg" },
+      { name: "Jfresh Wall Fan", price: "75000", img: "./img/jfreshwallfan.jpg" },
+      { name: "MD KING Ceiling Fan", price: "75000", img: "./img/mdkingceilingfan1.jpg" },
+
+      { name: "Odor Box Fan", price: "70000", img: "./img/odorboxfan.jpg" },
+      { name: "Samsonic Table Fan", price: "25000", img: "./img/samtablefan1.jpg" },
+      { name: "Samsonic Wall Fan", price: "25000", img: "./img/samwallfan.jpg" },
+      { name: "Superwide Stand Fan", price: "180000", img: "./img/swstandfan.jpg" },
+
+
+      
+      { name: "ပန်ကာမော်တာ", price: "35000", img: "./img/fancoin.jpg" },
+    //light//
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l1.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l2.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l3.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l4.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l5.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l6.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l7.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l8.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l9.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l10.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l11.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l12.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l13.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l14.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l15.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l16.jpg" },
+      { name: "ဓာတ်မီး", price: "11000", img: "./img/l17.jpg" },
+
+    //head light//
+      { name: "ခေါင်းစွပ်မီး", price: "10000", img: "./img/hl1.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "10000", img: "./img/hl2.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "20000", img: "./img/hl3.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "15000", img: "./img/hl4.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "30000", img: "./img/hl5.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "15000", img: "./img/hl6.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "7000", img: "./img/hl7.jpg" },
+      { name: "ခေါင်းစွပ်မီး", price: "6000", img: "./img/hl8.jpg" },
+
+
+    //Mosquito//
+      { name: "ခြင်ဖမ်းစက်", price: "25000", img: "./img/mc1.jpg" },
+      { name: "ခြင်ဖမ်းစက်", price: "3500", img: "./img/mc2.jpg" },
+      { name: "ခြင်ဖမ်းစက်", price: "15000", img: "./img/mc3.jpg" },
+      { name: "ခြင်ဖမ်းစက်", price: "16500", img: "./img/mc4.jpg" },
+      { name: "ခြင်ဖမ်းစက်", price: "18500", img: "./img/mc5.jpg" },
+      { name: "ခြင်ဖမ်းစက်", price: "4000", img: "./img/mc6.jpg" },
+
+    //ခြင်ရိုက်တံ//
+      { name: "ခြင်ရိုက်တံ", price: "20000", img: "./img/mr1.jpg" },
+      { name: "ခြင်ရိုက်တံ", price: "20000", img: "./img/mr2.jpg" },
+      { name: "ခြင်ရိုက်တံ", price: "20000", img: "./img/mr3.jpg" },
+      { name: "ခြင်ရိုက်တံ", price: "20000", img: "./img/mr4.jpg" },
+      { name: "ခြင်ရိုက်တံ", price: "20000", img: "./img/mr5.jpg" },
+
+    //ph charger//
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc1.jpg" },
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc2.jpg" },
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc3.jpg" },
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc4.jpg" },
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc5.jpg" },
+      { name: "Ph DC Charger", price: "10000", img: "./img/phdc6.jpg" },
+
+    //အားသွင်းမီး//
+      { name: "အားသွင်းမီး", price: "25000", img: "./img/rebulb1.jpg" },
+      { name: "အားသွင်းမီး", price: "25000", img: "./img/rebulb2.jpg" },
+
+
+
+
+    //ကတ္တား//
+      { name: "3ပိသာ ကတ္တား", price: "40000", img: "./img/369.jpg" },
+      { name: "6ပိသာ ကတ္တား", price: "40000", img: "./img/369.jpg" },
+      { name: "9ပိသာ ကတ္တား", price: "40000", img: "./img/369.jpg" },
+
+    //battery charger//
+      { name: "Battery Charger", price: "40000", img: "./img/batterych.jpg" },
+
+    //အကင်//
+      { name: "အကင်စက်", price: "50000", img: "./img/bbq.jpg" },
+
+    //wire//
+      { name: "Golden Lion Wire Twin ", price: "125000", img: "./img/glwire1.jpg" },
+      { name: "Golden Lion Wire Single", price: "125000", img: "./img/glwire2.jpg" },
+
+    //LED//
+      { name: "ကပ်ခေါင်း", price: "1way = 1500/ 2way = 2500", img: "./img/bh.jpg" },
+      { name: "စွဲခေါင်း", price: "1way = 1000/ 2way = 2000", img: "./img/cg.jpg" },
+      { name: "ပြောင်းခေါင်း", price: " 1000", img: "./img/cgchange.jpg" },
+
+      { name: "LED", price: "200", img: "./img/LED.jpg" },
+
+    //ဘာဂျာပိုက်//
+      { name: "ဘာဂျာပိုက်ဖြူ", price: "3မူး - 20000 / 5မူး - 20000 / 6မူး - 25000 / 3မတ် - 30000 / 5မတ် - 51,700 / 1လက်မ - 38,000 / 1လက်မခွဲ - 90,000 / 2လက်မ - 120,000", img: "./img/bjw.jpg" },
+      { name: "ဘာဂျာပိုက်မဲ", price: " ဘာဂျာပိုက်ဖြူ", price: "3မူး - 20000 / 5မူး - 20000 / 6မူး - 25000 / 3မတ် - 30000 / 5မတ် - 51,700 / 1လက်မ - 38,000 / 1လက်မခွဲ - 90,000 / 2လက်မ - 120,000", img: "./img/bjb.jpg" },
+
+    //Solar slight//
+      { name: "BT Solar Light", price: "50000", img: "./img/btsolarslight.jpg" },
+      { name: "Morster Solar Light", price: "50000", img: "./img/morstersolarslight.jpg" },
+
+
+    //BT speaker//
+      { name: "BT Speaker", price: "50000", img: "./img/btspeaker1.jpg" },
+      { name: "BT Speaker", price: "40000", img: "./img/btspeaker2.jpg" },
+      { name: "BT Speaker", price: "30000", img: "./img/btspeaker3.jpg" },
+    //Mic//
+      { name: "Microphone", price: "75000", img: "./img/mic1.jpg" },
+      { name: "Microphone", price: "75000", img: "./img/mic2.jpg" },
+      { name: "Microphone", price: "75000", img: "./img/mic3.jpg" },
+
+    //loud speaker//
+      { name: "Loud Speaker BT", price: "45000", img: "./img/ls1.jpg" },
+
+    //bulb//
+      { name: "LED ရေခဲ", price: "5w = 2500 / 10w = 3000 / 15w = 3500 / 20w = 4500 / 30w = 6500", img: "./img/bulb1.jpg" },
+
+    //coin//
+      { name: "လိပ်ပြာcoin", price: "9500", img: "./img/butterflycoin.jpg" },
+
+    //ph and charger//
+      { name: "ခေါင်းသေး/ကြီး", price: "2500", img: "./img/c1.jpg" },
+      { name: "ခေါင်းသေး/ကြီး", price: "2500", img: "./img/c2.jpg" },
+      { name: "ခေါင်းသေး/ကြီး", price: "2500", img: "./img/c3.jpg" },
+      { name: "ခေါင်းသေး/ကြီး", price: "2500", img: "./img/c4.jpg" },
+
+    //cable lag//
+      { name: "Cable lag", price: "2500", img: "./img/cablelag.jpg" },
+      { name: "Cable Tie", price: "2500", img: "./img/cabletie.jpg" },
+
+    //Circuit Breaker//
+      { name: "CHNT Breaker", price: "1p = 6500 / 2p = 18000 / 3p = 35000 / 4p = 60000", img: "./img/cbreaker.jpg" },
+      { name: "ဆင်Breaker Thailand", price: "10000", img: "./img/ebreaker1.jpg" },
+      { name: "ဆင်Breaker China", price: "5000", img: "./img/ebreaker2.jpg" },
+
+      { name: "LS Breaker", price: "20000", img: "./img/lsbreaker.jpg" },
+
+    //DB Box//
+      { name: "2 - 4 Box", price: "5500", img: "./img/db24.jpg" },
+      { name: "GA 17", price: "25000", img: "./img/ga17.jpg" },
+
+    //ရေလုံbox//
+      { name: "TTM ရေလုံbox", price: "25000", img: "./img/ttm.jpg" },
+    //panal//
+      { name: "Panal", price: "70000", img: "./img/panel.jpg" },
+
+
+    //vena//
+      { name: "Vena", price: "22000", img: "./img/vena.jpg" },
+    //changer main//
+      { name: "Changer", price: "30A = /60A = /", img: "./img/changer1.jpg" },
+      { name: "ကြက်ချိန်း", price: "30A = /60A = /", img: "./img/changer2.jpg" },
+
+
+       { name: "Digital Pilot", price: "3000", img: "./img/digpilot.jpg" },
+    //skt//
+       { name: "KGL", price: "2000", img: "./img/kgl.jpg" },
+    //fuse//
+       { name: "လက်ကိုင်Fuse", price: "", img: "./img/fuse1.jpg" },
+       { name: "Fuse", price: "", img: "./img/fuse2.jpg" },
+       { name: "တိုင်Fuse", price: "2000", img: "./img/tfuse1.jpg" },
+       { name: "တိုင်Fuse", price: "2000", img: "./img/tfuse.jpg" },
+    //jfresh//
+       { name: "2ဆလင်းမီးသီး 10W ", price: "4000", img: "./img/jf1.jpg" },
+       { name: "2ဆလင်းမီးသီး 15W", price: "5000", img: "./img/jf2.jpg" },
+       { name: "2ဆလင်းမီးသီး 20W", price: "6000", img: "./img/jf3.jpg" },
+       { name: "2ဆလင်းမီးသီး 30W", price: "10000", img: "./img/jf4.jpg" },
+       { name: "2ဆလင်းမီးသီး 40W", price: "14000", img: "./img/jf5.jpg" },
+       { name: "2ဆလင်းမီးသီး 50W", price: "17000", img: "./img/jf6.jpg" },
+       { name: "Candle Lamp 7W ပင်/ရစ် ဖြူဝါ", price: "8500", img: "./img/jf7.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 10W", price: "12000", img: "./img/jf8.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 20W", price: "15000", img: "./img/jf9.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 30W", price: "18000", img: "./img/jf10.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 50W", price: "25000", img: "./img/jf11.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 100W", price: "40000", img: "./img/jf12.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 150W", price: "70000", img: "./img/jf12.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 200W", price: "90000", img: "./img/jf13.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 300W", price: "12000", img: "./img/jf14.jpg" },
+       { name: "Led ရေလုံဆလိုက် အသစ် 400W", price: "17000", img: "./img/jf15.jpg" },
+       { name: "JFresh မှိုပွင့် 12W ပင်", price: "8000", img: "./img/jf16.jpg" },
+       { name: "JFresh မှိုပွင့် 12W ရစ်", price: "8000", img: "./img/jf17.jpg" },
+       { name: "JFresh မှိုပွင့် 15W ပင်", price: "9000", img: "./img/jf18.jpg" },
+       { name: "JFresh မှိုပွင့် 15W ရစ်", price: "9000", img: "./img/jf19.jpg" },
+       { name: "JFresh မှိုပွင့် 18W ပင်", price: "10000", img: "./img/jf20.jpg" },
+       { name: "JFresh မှိုပွင့် 18W ရစ်", price: "10000", img: "./img/jf21.jpg" },
+       { name: "JFresh မှိုပွင့် 24W ပင်", price: "12000", img: "./img/jf22.jpg" },
+       { name: "JFresh မှိုပွင့် 24W ရစ်", price: "12000", img: "./img/jf23.jpg" },
+       { name: "JFresh မှိုပွင့် 36W ပင်", price: "16000", img: "./img/jf24.jpg" },
+       { name: "JFresh မှိုပွင့် 36W ရစ်", price: "16000", img: "./img/jf25.jpg" },
+       { name: "JFresh မှိုပွင့် 50W ပင်", price: "20000", img: "./img/jf26.jpg" },
+       { name: "JFresh မှိုပွင့် 50W ရစ်", price: "20000", img: "./img/jf27.jpg" },
+       { name: "JFresh မှိုပွင့် 65W ပင်", price: "25000", img: "./img/jf28.jpg" },
+       { name: "JFresh မှိုပွင့် 65W ရစ်", price: "25000", img: "./img/jf29.jpg" },
+       { name: "JFresh မှိုပွင့် 85W ပင်", price: "40000", img: "./img/jf30.jpg" },
+       { name: "JFresh မှိုပွင့် 85W ရစ်", price: "40000", img: "./img/jf31.jpg" },
+       { name: "JFresh Solar ဆလိုက် 40W", price: "85000", img: "./img/jf32.jpg" },
+       { name: "JFresh Solar ဆလိုက် 60W", price: "95000", img: "./img/jf33.jpg" },
+       { name: "JFresh Solar ဆလိုက် 100W", price: "120000", img: "./img/jf34.jpg" },
+       { name: "JFresh Solar ဆလိုက် 200W", price: "160000", img: "./img/jf35.jpg" },
+       { name: "JF 10W USB အားသွင်းဆိုလာပြား", price: "50000", img: "./img/jf36.jpg" },
+       { name: "JF 15W USB အားသွင်းဆိုလာပြား", price: "60000", img: "./img/jf37.jpg" },
+       { name: "JF 20W USB အားသွင်းဆိုလာပြား", price: "70000", img: "./img/jf38.jpg" },
+       { name: "JFresh Led Flood Light 50W", price: "30000", img: "./img/jf39.jpg" },
+       { name: "JFresh Solar လမ်းမီး 100W", price: "160000", img: "./img/jf40.jpg" },
+       { name: "JFresh Solar လမ်းမီး 200W", price: "180000", img: "./img/jf41.jpg" },
+       { name: "JFresh Solar လမ်းမီး 300W", price: "200000", img: "./img/jf42.jpg" },
+       { name: "JFresh USB Solar မီးလုံး 30W", price: "20000", img: "./img/jf43.jpg" },
+       { name: "JFresh USB မီး (8)ကွက်", price: "35000", img: "./img/jf44.jpg" },
+       { name: "JFresh USB Solar မီးလုံး 60W", price: "25000", img: "./img/jf45.jpg" },
+       { name: "JFresh Power Bank Slight 200W", price: "38000", img: "./img/jf46.jpg" },
+       { name: "JFresh USB Solar မီးလုံး 90W", price: "30000", img: "./img/jf47.jpg" },
+       { name: "JFresh Power Bank Slight 100W", price: "45000", img: "./img/jf48.jpg" },
+       { name: "8-24W ချုပ်ပို", price: "4500", img: "./img/jf49.jpg" },
+       { name: "JFresh လမ်းမီးရိုးရိုး 50W", price: "65000", img: "./img/jf50.jpg" },
+       { name: "JFresh လမ်းမီးရိုးရိုး 100W", price: "85000", img: "./img/jf51.jpg" },
+       { name: "JFresh လမ်းမီးရိုးရိုး 200W", price: "100000", img: "./img/jf52.jpg" },
+       { name: "JFresh လမ်းမီးရိုးရိုး 300W", price: "130000", img: "./img/jf53.jpg" },
+
+       { name: "Click ဆလိုက် 10W-300W", price: "130000", img: "./img/cl1.jpg" },
+       { name: "Click Led Snowball 5W", price: "2500", img: "./img/cl2.jpg" },
+       { name: "Click Led Snowball 10W", price: "3000", img: "./img/cl3.jpg" },
+       { name: "Click Led Snowball 15W", price: "3500", img: "./img/cl4.jpg" },
+       { name: "Click Led Snowball 20W", price: "4500", img: "./img/cl5.jpg" },
+       { name: "Click Led Snowball 30W", price: "6500", img: "./img/cl6.jpg" },
+       { name: "Click Led Snowball 40W", price: "8500", img: "./img/cl7.jpg" },
+       { name: "Click Led Snowball 50W", price: "10000", img: "./img/cl8.jpg" },
+       { name: "Owen USB အားသွင်းမီးသီး 50W", price: "12000", img: "./img/cl9.jpg" },
+       { name: "Owen USB အားသွင်းမီးသီး 90W", price: "15000", img: "./img/cl10.jpg" },
+       { name: "Owen USB အားသွင်းမီးသီး 120W", price: "18000", img: "./img/cl11.jpg" },
+       { name: "Owen 30W AC/DC မီးလုံး-FA3636", price: "25000", img: "./img/cl12.jpg" },
+       { name: "Owen အားသွင်းမီးလုံး 30W", price: "25000", img: "./img/cl13.jpg" },
+       { name: "Owen 28W AC/DC Solar မီးလုံး", price: "25000", img: "./img/cl14.jpg" },
+       { name: "JFS - 60 အားသွင်းမီးလုံ", price: "25000", img: "./img/cl15.jpg" },
+       { name: "JFresh USB မီး (1)ကွက်", price: "35000", img: "./img/cl16.jpg" },
+       { name: "JFresh USB Solar မီးလုံး 100W", price: "33000", img: "./img/cl17.jpg" },
+       { name: "JFresh USB Solar မီးလုံး 200W", price: "38000", img: "./img/cl18.jpg" },
+       { name: "Solar Emergency Lamp 150W", price: "45000", img: "./img/cl19.jpg" },
+       { name: "JF - အကပ် - လေးထောင့် - ဖြူပြာ 6+3W - 18+6W", price: "", img: "./img/cl20.jpg" },
+       { name: "JF - အကပ် - အဝိုင်း - ဖြူပြာ 6+3W - 18+6W", price: "", img: "./img/cl21.jpg" },
+       { name: "Owen 2' Led မီးချောင်းစုံ", price: "7000", img: "./img/cl22.jpg" },
+       { name: "Owen 4' Led မီးချောင်းစုံ", price: "10000", img: "./img/cl23.jpg" },
+       { name: "Owen 2'ဝေဖာ Led မီးချောင်းစုံ", price: "9000", img: "./img/cl24.jpg" },
+       { name: "Owen 4'ဝေဖာ Led မီးချောင်းစုံ", price: "13000", img: "./img/cl25.jpg" },
+       { name: "Owen Solar လမ်းမီး 60W", price: "85000", img: "./img/cl26.jpg" },
+       { name: "Owen Solar လမ်းမီး 90W", price: "100000", img: "./img/cl27.jpg" },
+       { name: "Owen Solar လမ်းမီး 120W", price: "120000", img: "./img/cl28.jpg" },
+       { name: "Click 12W Led ကြာပန်း", price: "6500", img: "./img/cl29.jpg" },
+       { name: "Owen ဖရိန်ချုပ်လွတ်", price: "4500", img: "./img/cl30.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 6052", price: "20000", img: "./img/cl31.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 52", price: "22000", img: "./img/cl32.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 6068", price: "22000", img: "./img/cl33.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 36", price: "24000", img: "./img/cl34.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 68", price: "25000", img: "./img/cl35.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 51", price: "26000", img: "./img/cl36.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 8046", price: "26000", img: "./img/cl37.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 2052", price: "26000", img: "./img/cl38.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 43", price: "26000", img: "./img/cl39.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 8052", price: "26000", img: "./img/cl40.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 67", price: "28000", img: "./img/cl41.jpg" },
+       { name: "JFresh ခေါင်းစွပ်မီး - 2068", price: "28000", img: "./img/cl42.jpg" },
+       { name: "Owen 2' ဖရိန်စုံ", price: "5500", img: "./img/cl43.jpg" },
+       { name: "Owen 4' ဖရိန်စုံ", price: "6500", img: "./img/cl44.jpg" },
+       { name: "သံလိုက်မီးဝိုင်း 18W", price: "8500", img: "./img/cl45.jpg" },
+       { name: "သံလိုက်မီးဝိုင်း 24W 1C", price: "10000", img: "./img/cl46.jpg" },
+       { name: "သံလိုက်မီးဝိုင်း 24W 2C", price: "11000", img: "./img/cl47.jpg" },
+       { name: "သံလိုက်မီးဝိုင်း 36W 1C", price: "15000", img: "./img/cl46.jpg" },
+       { name: "သံလိုက်မီးဝိုင်း 36W 2C", price: "15000", img: "./img/cl47.jpg" },
+       { name: "JFresh Led 12W လေးထောင့် အကပ် ", price: "12000", img: "./img/cl48.jpg" },
+       { name: "JFresh Led 12W အဝိုင်း အကပ် ", price: "12000", img: "./img/cl49.jpg" },
+       { name: "JFresh Led 18W လေးထောင့် အကပ် ", price: "16500", img: "./img/cl48.jpg" },
+       { name: "JFresh Led 18W အဝိုင်း အကပ် ", price: "16500", img: "./img/cl49.jpg" },
+       { name: "JFresh Led 24W လေးထောင့် အကပ် ", price: "24000", img: "./img/cl48.jpg" },
+       { name: "JFresh Led 24W အဝိုင်း အကပ် ", price: "24000", img: "./img/cl49.jpg" },
+       
+       { name: "JFresh Led 6W အဝိုင်း အမြှုပ် ", price: "7500", img: "./img/cl50.jpg" },
+       { name: "JFresh Led 6W လေးထောင့် အမြှုပ်", price: "7500", img: "./img/cl51.jpg" },
+       
+       { name: "JFresh Led 9W အဝိုင်း အမြှုပ်", price: "8500", img: "./img/cl50.jpg" },
+       { name: "JFresh Led 9W လေးထောင့် အမြှုပ်", price: "8500", img: "./img/cl51.jpg" },
+       
+       { name: "JFresh Led 12W အဝိုင်း အမြှုပ်", price: "10000", img: "./img/cl50.jpg" },
+       { name: "JFresh Led 12W လေးထောင့် အမြှုပ်", price: "10000", img: "./img/cl51.jpg" },
+       
+       { name: "JFresh Led 15W အဝိုင်း အမြှုပ်", price: "12000", img: "./img/cl50.jpg" },
+       { name: "JFresh Led 15W လေးထောင့် အမြှုပ်", price: "12000", img: "./img/cl51.jpg" },
+       
+       { name: "JFresh Led 18W အဝိုင်း အမြှုပ်", price: "14000", img: "./img/cl50.jpg" },
+       { name: "JFresh Led 18W လေးထောင့် အမြှုပ်", price: "14000", img: "./img/cl51.jpg" },
+
+       
+
+
+
+
+    //bell//
+       { name: "Guest Saluting Bell", price: "18000", img: "./img/guest.jpg" },
+    //Battery//
+       { name: "Panasonic AA/AAA", price: "1000", img: "./img/panasaa1.jpg" },
+       { name: "Panasonic AA/AAA", price: "1000", img: "./img/panasaa1.jpg" },
+       { name: "Panasonic AA/AAA Alkaline", price: "5000", img: "./img/panasalka.jpg" },
+       { name: "Sanook 3.7V 18650", price: "4000", img: "./img/sn37.jpg" },
+       { name: "ULAStar 3.7V 18650", price: "22000", img: "./img/ula37v.jpg" },
+       { name: "Thaitop Battery", price: "50000", img: "./img/thaitop.jpg" },
+
+
+
+
+    //invrter//
+       { name: "Inverter 220W", price: "22000", img: "./img/inverter220w.jpg" },
+       { name: "TZ Inverter ", price: "22000", img: "./img/tz.jpg" },
+
+
+    //Solar//
+      { name: "Clamp Solar", price: "65000", img: "./img/cclampsolar.jpg" },
+      { name: "Ph Solar", price: "25000", img: "./img/phsolar.jpg" },
+      { name: "TATABP Solar", price: "100000", img: "./img/tatabpsolar.jpg" },
+      { name: "PWM Solar Conroller", price: "10000", img: "./img/pwmcontrol.jpg" },
+
+      { name: "6ဆခလုတ်", price: "2000", img: "./img/6switch.jpg" },
+      { name: "2016 / 2025 / 2032", price: "1000 / 3500", img: "./img/232.jpg" },
+
+      { name: "မီးရှိပိုက်", price: "1000", img: "./img/shrink.jpg" },
+      { name: "Key Chain light", price: "4000", img: "./img/key.jpg" },
+      { name: "MC4 Connector", price: "3500", img: "./img/mc4connector.jpg" },
+      { name: "2pin milti", price: "2000", img: "./img/2pinmuliti1.jpg" }
+
+
+    ];
+
+    const productList = document.getElementById("productList");
+    const searchBar = document.getElementById("searchBar");
+
+    function displayProducts(filter = "") {
+      productList.innerHTML = "";
+      const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      filtered.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${product.img}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.price} Kyats</p>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    searchBar.addEventListener("input", (e) => {
+      displayProducts(e.target.value);
+    });
+
+    // Initial display
+    displayProducts();
+  </script>
+</body>
+</html>
